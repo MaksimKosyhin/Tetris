@@ -22,7 +22,6 @@ public class Main extends Application{
         pane.requestFocus();
     }
 	
-	// speed doesnt increase
     public static void main(String[] args) {
         launch();
     }
