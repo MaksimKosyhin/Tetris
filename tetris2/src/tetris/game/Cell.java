@@ -23,8 +23,4 @@ public class Cell extends Rectangle{
 		widthProperty().bind(size);
 		heightProperty().bind(size);
 	}
-	
-	public boolean isAtSamePosition(Cell c) {
-		return c.x.get() == x.get();
-	}
 }
