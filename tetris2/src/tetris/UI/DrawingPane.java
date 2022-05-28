@@ -52,21 +52,33 @@ public class DrawingPane extends BorderPane{
 		
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(new KeyFrame(Duration.millis(FRAME_DELAY), e -> processGameTurn(KeyCode.DOWN)));
+		animation.getKeyFrames()
+			.add(new KeyFrame(Duration.millis(FRAME_DELAY), e -> processGameTurn(KeyCode.DOWN)));
 		animation.setRate(currentRate);
 		
 		this.setOnKeyPressed(e -> {
-			if(animation.getStatus() == Status.PAUSED) {
+			if(game.isGameOver()) {
 				if(e.getCode() == KeyCode.ENTER) {
 					checkPoint = CHECKPOINT_STEP;
 					currentRate = 1;
 					game.restart();
 					
 					animation.setRate(currentRate);
+					
 					animation.play();
 				}
 			} else {
-				processGameTurn(e.getCode());
+				if(e.getCode() == KeyCode.SPACE) {
+					if(animation.getStatus() == Status.PAUSED) {
+						animation.play();
+					} else {
+						animation.pause();
+					}
+				} else {
+					if(animation.getStatus() != Status.PAUSED) {
+						processGameTurn(e.getCode());
+					}
+				}
 			}
 		});
 		
@@ -74,8 +86,9 @@ public class DrawingPane extends BorderPane{
 	}
 	
 	private void processGameTurn(KeyCode code) {
+		game.moveFigure(code);
 		
-		if(!game.moveFigure(code)) {
+		if(game.isGameOver()) {
 			animation.pause();
 		} else {
 			int rowsAboveCheckPoint = game.getRemovedRows() - checkPoint;
