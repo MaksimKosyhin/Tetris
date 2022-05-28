@@ -19,8 +19,9 @@ public class GameField {
 	
 	private final List<Node> list;
 	private Figure figure;
-	private int removedRows = 0;
 	
+	private int removedRows = 0;
+	private boolean gameOver = false;
 	private final boolean[][] grid = new boolean[ROWS][COLUMNS];
 	
 	private final Predicate<Cell> isLeftCorner = cell -> cell.x.get() == -1;
@@ -56,10 +57,11 @@ public class GameField {
 		}
 		
 		removedRows = 0;
+		gameOver = false;
 		setRandomFigure();
 	}
 	
-	public boolean moveFigure(KeyCode action) {
+	public void moveFigure(KeyCode action) {
 		switch(action) {
 		case LEFT:
 			figure.move(moveLeft);
@@ -92,7 +94,8 @@ public class GameField {
 				figure.move(moveUp);
 				
 				if(figure.isConditionMet(isCeil)) {
-					return false;
+					gameOver = true;
+					return;
 				}
 				
 				fillGrid();
@@ -104,7 +107,6 @@ public class GameField {
 		}
 		
 		removeFilledRows();
-		return true;
 	}
 	
 	private boolean isSpaceOccupied() {
@@ -177,4 +179,9 @@ public class GameField {
 	public int getRemovedRows() {
 		return removedRows;
 	}
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
 }
+
