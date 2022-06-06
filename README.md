@@ -1,7 +1,7 @@
 # Tetris
 I've created this game using JavaFX.  
 The rules are the same as in the original game. Use arrow buttons to play.  
-To restart a game after you lose just press Enter. 
+Press space button to stop the game and enter to resatrt when game is over.
   
     
 This applcation elements' size is also scaleable, so you can freely change size of your application window  
