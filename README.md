@@ -1,5 +1,5 @@
 # Tetris
-I've created this game using JavaFX.  
+I used JavaFX to make this.  
 The rules are the same as in the original game. Use arrow buttons to play.  
 Press space button to stop the game and enter to resatrt when game is over.
   
